@@ -1,0 +1,16 @@
+bookdown::gitbook:
+  number_sections: false
+  config:
+    # toc_depth: 1
+    # toc_float:
+    #   collapsed: false
+    toc:
+      scroll_highlight: yes
+      collapse: section
+      before: |
+        <li><a href="./">mar 241s</a></li>
+      after: null
+    toolbar:
+      position: static
+    sharing: no
+    download: yes
