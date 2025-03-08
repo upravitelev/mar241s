@@ -1,0 +1,275 @@
+# Метрики вовлечения pt3 {#c2_engagement3}
+
+## Код занятия на Python
+https://colab.research.google.com/drive/13f1fpEbD_SBwkkW-VOZDvZewHevQABC3?usp=sharing
+
+## Разбор домашнего задания
+
+### level 2 (HNTR) {-}
+
+Постройте график ретеншена для когорты пользователей, пришедшей в июне, с разбивкой по источникам привлечения (media_source). Для этого вам потребуются следующие датасеты:
+
+- Инсталлы: https://gitlab.com/hse_mar/mar211f/-/raw/main/data/installs.csv
+- Логины: https://gitlab.com/hse_mar/mar211f/-/raw/main/data/dau.csv
+
+```{r, message=FALSE, warning=FALSE}
+# Подключаем библиотеки
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(plotly)
+
+# Загружаем данные
+installs <- read_csv("./data/installs.csv")
+logins <- read_csv("./data/logins.csv")
+
+# Выделяем инсталлы в июне
+installs_june <- installs %>%
+  filter(dt >= "2022-06-01", dt < "2022-07-01")
+
+# Считаем количество пользователей по источникам трафика
+installs_june %>%
+  count(media_source, name = "unique_users")
+
+# Укрупняем источники трафика
+installs_june <- installs_june %>%
+  mutate(media_source = ifelse(media_source %in% c("organic", "other") | is.na(media_source), "organic", media_source))
+
+# Проверяем, есть ли пользователи с повторными инсталлами
+users_reinstalls <- installs_june %>%
+  group_by(user_pseudo_id) %>%
+  summarise(n_install_dates = n_distinct(dt)) %>%
+  filter(n_install_dates > 1) %>%
+  pull(user_pseudo_id)
+
+# Чистим пользователей с повторными инсталлами, оставляя только первый инсталл
+installs_june <- installs_june %>%
+  arrange(user_pseudo_id, dt) %>%
+  group_by(user_pseudo_id) %>%
+  slice(1) %>%
+  ungroup()
+
+# Присоединяем логины к установкам
+installs_june <- installs_june %>%
+  left_join(logins, by = c("user_pseudo_id", "platform"))
+
+# Вычисляем lifetime
+installs_june <- installs_june %>%
+  mutate(lifetime = as.numeric(login_dt - dt))
+
+# Ищем пользователей, у которых логин был раньше инсталла
+invalid_users <- installs_june %>%
+  filter(login_dt < dt) %>%
+  pull(user_pseudo_id) %>%
+  unique()
+
+# Убираем пользователей с некорректными датами
+installs_june <- installs_june %>%
+  filter(!user_pseudo_id %in% invalid_users)
+
+# Чистим, оставляя только тех, у кого есть lifetime = 0
+valid_users <- installs_june %>%
+  filter(lifetime == 0) %>%
+  pull(user_pseudo_id) %>%
+  unique()
+
+installs_june <- installs_june %>%
+  filter(user_pseudo_id %in% valid_users)
+
+# Считаем количество вернувшихся пользователей по дням lifetime
+installs_june_stat <- installs_june %>%
+  group_by(media_source, lifetime) %>%
+  summarise(returned = n_distinct(user_pseudo_id), .groups = "drop")
+
+# Убираем lifetime < 0 (избыточный шаг)
+installs_june_stat <- installs_june_stat %>%
+  filter(lifetime >= 0)
+
+# Считаем количество инсталлов (всего пользователей на день 0)
+installs_june_stat <- installs_june_stat %>%
+  group_by(media_source) %>%
+  mutate(total_users = first(returned[lifetime == 0])) %>%
+  ungroup()
+
+# Считаем retention
+installs_june_stat <- installs_june_stat %>%
+  mutate(ret = returned / total_users)
+
+# Сортируем по lifetime
+installs_june_stat <- installs_june_stat %>%
+  arrange(lifetime)
+
+# рисуем график, попутно накладываем ограничение на количество дней лайтайма
+plot_ly(installs_june_stat %>% filter(lifetime <= 30), 
+        x = ~lifetime, y = ~ret, color = ~media_source,
+        type = 'scatter', mode = 'lines') %>%
+  layout(
+    title = 'Ретеншен июньской когорты в зависимости от источников трафика',
+    yaxis = list(rangemode = 'tozero')
+    ) %>%
+  config(displayModeBar = FALSE)  
+```
+
+
+### level 3 (HMP)
+Постройте линейный график retention 1 day (ret1) для всех дневных когорт.
+Т.е. по оси OX должна быть дата инсталла, по оси OY -- значение ретеншена первого для пользователей, пришедших в этот день.
+
+```{r}
+# Присоединяем логины к инсталлам
+daily_ret <- installs %>%
+  left_join(logins, by = c("user_pseudo_id", "platform"))
+
+# Вычисляем lifetime
+daily_ret <- daily_ret %>%
+  mutate(lifetime = as.numeric(login_dt - dt))
+
+# Убираем пользователей с некорректными датами (логин раньше инсталла)
+invalid_users <- daily_ret %>%
+  filter(login_dt < dt) %>%
+  pull(user_pseudo_id) %>%
+  unique()
+
+daily_ret <- daily_ret %>%
+  filter(!user_pseudo_id %in% invalid_users)
+
+# Оставляем только пользователей, у которых есть lifetime = 0
+valid_users <- daily_ret %>%
+  filter(lifetime == 0) %>%
+  pull(user_pseudo_id) %>%
+  unique()
+
+daily_ret <- daily_ret %>%
+  filter(user_pseudo_id %in% valid_users)
+
+# Считаем количество вернувшихся пользователей по дням от инсталла
+daily_ret_stat <- daily_ret %>%
+  group_by(dt, login_dt, lifetime) %>%
+  summarise(returned = n_distinct(user_pseudo_id), .groups = "drop")
+
+# Восстанавливаем пропавшие даты с lifetime = 0 (если нужно)
+total_users_df <- daily_ret_stat %>%
+  filter(lifetime == 0) %>%
+  select(dt, total_users = returned)
+
+# Добавляем total_users к статистике
+daily_ret_stat <- daily_ret_stat %>%
+  left_join(total_users_df, by = "dt")
+
+# Вычисляем retention
+daily_ret_stat <- daily_ret_stat %>%
+  mutate(ret = returned / total_users) %>%
+  arrange(dt, lifetime)
+
+# Оставляем только нужные дни для графика
+ret_days <- c(1, 3, 7, 14, 30)
+
+daily_ret_stat_plot <- daily_ret_stat %>%
+  filter(lifetime %in% ret_days) %>%
+  mutate(lifetime_cat = factor(lifetime, levels = ret_days))
+
+# рисуем график ретеншена дневных когорт
+plot_ly(daily_ret_stat_plot, 
+        x = ~dt, y = ~ret, color = ~lifetime_cat,
+        type = 'scatter', mode = 'lines') %>%
+  layout(
+    title = 'Retention rate дневных когорт',
+    yaxis = list(rangemode = 'tozero')
+  ) %>%
+  config(displayModeBar = FALSE)  
+```
+
+### level 5 (N)
+
+Постройте и сравните графики rolling retention и retention rate (возьмите данные за логины и инсталлы из практикума).
+
+```{r}
+# Считаем количество вернувшихся пользователей по дням лайфтайма
+retention_type <- installs_june %>%
+  group_by(lifetime) %>%
+  summarise(returned = n_distinct(user_pseudo_id), .groups = "drop")
+
+# Добавляем total_users (число пользователей с lifetime == 0)
+total_users <- retention_type %>%
+  filter(lifetime == 0) %>%
+  pull(returned)
+
+# Вычисляем retention rate
+retention_type <- retention_type %>%
+  mutate(total_users = total_users, ret_rate = returned / total_users)
+```
+
+Для rolling retention необходимо:
+
+- посчитать максимальный лайфтайм пользователя
+- посчитать количество пользователей по лайфтайму
+- cделать обратную кумулятивную сумму
+- cумму поделить на количество установок (для lifetime == 0 значения количества инсталлов и обратная кумсумма должны совпадать)
+
+```{r}
+# Определяем максимальный день лайфтайма для каждого пользователя
+rrolling <- installs_june %>%
+  group_by(user_pseudo_id, dt) %>%
+  summarise(lifetime = max(lifetime), .groups = "drop")
+
+# Считаем количество уникальных пользователей на каждый день лайфтайма
+rrolling_stat <- rrolling %>%
+  group_by(lifetime) %>%
+  summarise(n_users = n_distinct(user_pseudo_id), .groups = "drop")
+
+# Вычисляем обратную кумулятивную сумму (rolling retention)
+rrolling_stat <- rrolling_stat %>%
+  arrange(desc(lifetime)) %>%
+  mutate(returned_after = cumsum(n_users)) %>%
+  arrange(lifetime)  # Возвращаем обратно в исходный порядок
+```
+
+```{r}
+# Объединяем retention_type и rrolling_stat по lifetime
+retention_type <- retention_type %>%
+  left_join(rrolling_stat, by = "lifetime") %>%
+  mutate(ret_rolling = returned_after / total_users) %>%
+  filter(lifetime <= 30)
+
+# и рисуем
+plot_ly(retention_type, x = ~lifetime, y = ~ret_rate, type = 'scatter', mode = 'lines', name = 'Retention rate') %>%
+  add_trace(y = ~ret_rolling, name = 'Rolling retention')  %>%
+  layout(
+    title = 'Retention rate vs Rolling retention, июньская когорта',
+    yaxis = list(rangemode = 'tozero')
+  ) %>%
+  config(displayModeBar = FALSE)  
+```
+
+
+## Домашнее задание
+
+### level 1 (IATYTD)
+
+Внимательно разберите решения заданий (материалы конспекта).
+
+### level 2 (HNTR)
+Постройте график ретеншена для когорты пользователей, пришедшей в июне, с разбивкой по платформе. Для этого вам потребуются следующие датасеты:
+
+Инсталлы: https://gitlab.com/hse_mar/mar211f/-/raw/main/data/installs.csv
+Логины: https://gitlab.com/hse_mar/mar211f/-/raw/main/data/dau.csv
+
+### level 3 (HMP)
+Постройте линейный график retention 1 day (ret1) для всех дневных когорт, с разбивкой по платформам.
+Т.е. по оси OX должна быть дата инсталла, по оси OY -- значение ретеншена первого для пользователей, пришедших в этот день.
+
+### level 4 (UV)
+
+Посчитайте коэффициент ret7 / ret1 для июньской когорты
+
+### level 5 (N)
+
+Нарисуйте потоковый график коэффициента ret7 / ret1 для каждого источника установок (media_source). По оси OX у вас должна быть дата инсталла, по OY -- значение коэффициента, количество линий по количеству медиасорсов. Отфильтруйте сегменты, где меньше 10 пользователей (не показывайте их на графике).
+
+
+
+
+
+
+
+
