@@ -1,7 +1,7 @@
 # Метрики вовлечения pt3 {#c2_engagement3}
 
 ## Код занятия на Python
-https://colab.research.google.com/drive/13f1fpEbD_SBwkkW-VOZDvZewHevQABC3?usp=sharing
+https://colab.research.google.com/drive/19TldCSPFuVdaPszZ2XFMLpb3vshUm5YN?usp=sharing
 
 ## Разбор домашнего задания
 
