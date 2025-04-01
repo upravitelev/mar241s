@@ -1,5 +1,9 @@
 # Метрики вовлечения pt3 {#c2_engagement3}
 
+## папка с записями в Dropbox
+
+https://www.dropbox.com/scl/fo/pzw6egi6notlmr08vq1wq/ACf8iAANpusI3UcBlOFXoKM?rlkey=y9c0mao5qj2r85q1cgrdrg4oc&st=328vy5sx&dl=0
+
 ## Код занятия на Python
 https://colab.research.google.com/drive/19TldCSPFuVdaPszZ2XFMLpb3vshUm5YN?usp=sharing
 
