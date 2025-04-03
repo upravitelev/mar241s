@@ -9,7 +9,7 @@ rmd_files: [
   '3_engagement.Rmd',
   '4_engagement.Rmd',
   '5_monetization.Rmd',
-  # '6_monetization.Rmd',
+  '6_monetization.Rmd',
   # '7_monetization.Rmd',
   # '7_ux.Rmd',
   # 'hw_1.Rmd',
