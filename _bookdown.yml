@@ -12,7 +12,7 @@ rmd_files: [
   '6_monetization.Rmd',
   # '7_monetization.Rmd',
   # '7_ux.Rmd',
-  # 'hw_1.Rmd',
+  'hw_1.Rmd',
   # '8_abtest.Rmd',
   # '9_stats.Rmd',
   # '10_case.Rmd',
