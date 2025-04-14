@@ -1,0 +1,239 @@
+# Метрики монетизации pt3 {#c3_monetization3}
+
+## Код занятия на Python
+https://colab.research.google.com/drive/13AezTnu5f73Ex-kRbefOKe0l1Yajp0q3?usp=sharing
+
+## Разбор домашнего задания
+
+```{r, message=FALSE, warning=FALSE}
+# Подключаем библиотеки
+library(tidyverse)
+library(plotly)
+library(kableExtra)
+
+# Загружаем данные
+installs <- read_csv("./data/installs.csv")
+payments <- read_csv("./data/payments_custom.csv")
+
+# Выделяем инсталлы в июне
+installs_june <- installs %>%
+  filter(dt >= "2022-06-01", dt < "2022-07-01")
+```
+
+
+
+### level 2 (HNTR)
+
+На основе данных по [платежам](https://gitlab.com/hse_mar/mar211f/-/raw/main/data/payments_custom.csv) нарисуйте [area plot](https://en.wikipedia.org/wiki/Area_chart) подневную структуру гросса проекта, в котором цветами выделите группы пользователей по количеству дней с момента инсталла:
+
+-   группа 1: 0 дней с инсталла
+
+-   группа 2: 1-7 дней с момента инсталла
+
+-   группа 3: 8-28 дней с инсталла
+
+-   группа 4: более 28 дней с инсталла
+
+Решение аналогично такому же заданию на расчет структуры DAU.
+
+Решение:
+```{r, include=FALSE, eval=FALSE}
+# считаем количество дней от инсталла
+# install_dt -- дата регистрации пользователя
+# pay_dt -- дата платежа любого пользователя, в заданный период, не только нового
+# Считаем количество дней от инсталла
+payments <- payments %>%
+  mutate(lifetime = as.numeric(pay_dt - install_dt))
+
+payments <- payments %>%
+  mutate(user_group = case_when(
+    lifetime == 0 ~ '0 days',
+    lifetime %in% seq(1, 7) ~ '1-7 days',
+    lifetime %in% seq(8, 28) ~ '8-28 days',
+    lifetime >= 29 ~ '29+ days',
+  ))
+
+# считаем гросс по дням
+payments_stat <- payments %>%
+  group_by(pay_dt, user_group) %>%
+  summarise(gross = sum(gross), .groups = "drop")
+
+# area-plot
+plot_ly(payments_stat, x = ~pay_dt, y = ~gross, color = ~user_group,
+        type = 'scatter', mode = 'none', stackgroup = 'one') %>%
+  layout(
+    title = 'Структура выручки по времени жизни пользователей в приложении',
+    xaxis = list(title = ''),
+    yaxis = list(title = '', rangemode = 'tozero')) %>%  
+  config(displayModeBar = FALSE)
+```
+
+
+### level 3 (HMP)
+
+Сделайте табличку монетизации для июньских и июльских когорт пользователей.
+В табличке должны быть следующие метрики: 
+
+- total_users: всего пользователей когорты
+- n_payers: количество платящих
+- conversion: конверсия в платящих
+- gross: сколько всего заплатили
+- ARPU
+- ARPPU
+- AOV (average order value): размер среднего платежа (средний чек)
+- AvPurchases: среднее количество платежей на пользователя
+
+По строкам -- пользователи, пришедшие в июне и июле, две строки.
+
+```{r}
+# Считаем количество пользователей по платформам
+installs_m <- installs %>%
+  filter(dt >= "2022-06-01", dt < "2022-07-25") %>%
+  mutate(month = month(dt, label = TRUE, locale = 'en_US.UTF-8', abbr = FALSE))
+
+installs_m_stat <- installs_m %>%
+  group_by(month) %>% 
+  summarise(total_users = n_distinct(user_pseudo_id), .groups = "drop")
+
+# Объединяем платежи с инсталлами за июнь
+payments_m <- payments %>%
+  inner_join(installs_m, by = c("user_pseudo_id", "platform")) %>%
+  mutate(lifetime = as.integer(as.Date(pay_dt) - as.Date(dt)))
+
+# Фильтруем только платежи в первые 7 дней
+payments_m_stat <- payments_m %>%
+  filter(lifetime %in% 0:7) %>%
+  group_by(month) %>%
+  summarise(
+    n_payers = n_distinct(user_pseudo_id),
+    gross = sum(gross, na.rm = TRUE),
+    n_transactions = n()
+  )
+
+# Объединяем статистику установок и платежей
+monetization_m <- installs_m_stat %>%
+  left_join(payments_m_stat, by = 'month') %>%
+  mutate(
+    conversion = round(n_payers / total_users, 3),
+    ARPU = round(gross / total_users, 3),
+    ARPPU = round(gross / n_payers, 1),
+    AOV = round(gross / n_transactions, 1),
+    AvPurchases = round(n_transactions / n_payers, 1)
+  )
+
+kable(monetization_m) %>%
+  kable_styling(font_size = 10)
+```
+
+
+
+### level 4 (UV)
+
+Постройте воронку платежей (возьмите первые 10 платежей) в когорте июньских пользователей, с разбивкой по платформам.
+Попробуйте сделать два графика -- один с долями от первого шага, другой -- с долями от предыдущего шага.
+
+Для обращения к значению в предыдущей ячейки питонистам поможет метод `shift()`. Тем, кто пишет на tidyverse R -- функция `lag()`.
+
+```{r}
+users_june <- installs %>%
+  filter(dt < as.Date("2022-07-01")) %>%
+  distinct(user_pseudo_id) %>%
+  pull(user_pseudo_id)
+
+# Сортируем платежи по пользователю и времени транзакции
+payments_june <- payments %>%
+  filter(user_pseudo_id %in% users_june) %>%
+  arrange(user_pseudo_id, ts) %>%
+  group_by(user_pseudo_id) %>%
+  mutate(payment_number = row_number()) %>%
+  ungroup()
+
+# Фильтруем только первые 10 платежей
+payment_funnel <- payments_june %>%
+  filter(payment_number <= 10) %>%
+  group_by(platform, payment_number) %>%
+  summarise(n_users = n_distinct(user_pseudo_id), .groups = "drop")
+
+# Добавляем общее количество пользователей и считаем долю
+payment_funnel <- payment_funnel %>%
+  group_by(platform) %>%
+  mutate(
+    total_users = n_users[payment_number == 1],
+    share = n_users / total_users,
+    n_users_prev = lag(n_users, n = 1),
+    share_prev = n_users / n_users_prev,
+  )
+
+# Строим воронку платежей
+plot_ly(payment_funnel,  x = ~payment_number,  y = ~share,  type = "bar", color = ~platform) %>%
+  layout(title = "Воронка платежей") %>%  
+  config(displayModeBar = FALSE)
+
+# Строим воронку платежей
+plot_ly(payment_funnel,  x = ~payment_number,  y = ~share_prev,  type = "bar", color = ~platform) %>%
+  layout(title = "Воронка платежей, доля от предыдущего шага") %>%  
+  config(displayModeBar = FALSE)
+```
+
+
+### level 5 (N)
+
+Постройте график накопительной конверсии в когорте июньских пользователей с разбивкой по источнику (media_source) пользователей.
+
+Для этого надо сначала посчитать, в какой день от инсталла пользователь сделал первый платеж (lifetime).
+Потом посчитать, сколько пользователей сделало первый платеж в 0-30 дни от инсталла (new payers).
+Посчитать накопительную сумму по количеству пользователей (cumulative new payers).
+Посчитать отношение cumulative new payers / total users
+Нарисовать график.
+
+
+```{r}
+# Фильтруем инсталлы до июля
+installs_june <- installs %>%
+  filter(dt < as.Date("2022-07-01"))
+
+# Первый платёж каждого пользователя
+first_payment <- payments %>%
+  group_by(user_pseudo_id) %>%
+  summarise(pay_dt_first = min(pay_dt), .groups = "drop")
+
+# оставляем только июньских пользователей, вычисляем лайфтайм
+first_payment <- first_payment%>%
+  inner_join(installs_june %>% select(user_pseudo_id, dt, media_source), by = "user_pseudo_id") %>%
+  mutate(lifetime = as.integer(difftime(pay_dt_first, dt, units = "days"))) %>%
+  filter(lifetime %in% 0:7)
+
+# Агрегация по источникам и лайфтаймам
+first_payment_stat <- first_payment %>%
+  group_by(media_source, lifetime) %>%
+  summarise(new_payers = n_distinct(user_pseudo_id), .groups = "drop") %>%
+  arrange(media_source, lifetime) %>%
+  group_by(media_source) %>%
+  mutate(new_payers_cum = cumsum(new_payers)) %>%
+  ungroup()
+
+# Кол-во инсталлов по источникам
+installs_june_stat <- installs_june %>%
+  group_by(media_source) %>%
+  summarise(total_installs = n_distinct(user_pseudo_id), .groups = "drop")
+
+# Объединение и расчет кумулятивной конверсии
+first_payment_stat <- installs_june_stat %>%
+  left_join(first_payment_stat, by = "media_source") %>%
+  mutate(conversion_cum = new_payers_cum / total_installs)
+
+# Визуализация
+plot_ly(
+  data = first_payment_stat,
+  x = ~lifetime, y = ~conversion_cum, color = ~media_source,
+  type = 'scatter', mode = 'lines'
+) %>%
+  layout(
+    title = "Конверсия в платящих по источникам трафика",
+    yaxis = list(rangemode = 'tozero')
+  )
+
+```
+
+
+

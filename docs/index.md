@@ -2,7 +2,7 @@
 title: "Методы анализа больших данных"
 subtitle: "в исследованиях поведения покупателей"
 author: 'Ph.A.Upravitelev '
-date: "2025-04-08"
+date: "2025-04-14"
 documentclass: book
 link-citations: yes
 lang: ru-RU
@@ -21,6 +21,8 @@ March 5: [Метрики вовлечения и удержания III](#c2_eng
 
 March 12: [Метрики монетизации I](#c3_monetization1). Метрики монетизации: Conversion, ARPU/ARPPU/LTV, ARPDAU, воронка платежей.
 
-March 17: [Метрики монетизации II](#c3_monetization2). Расчет метрики монетизации: Conversion, ARPU, cARPU, воронка платежей.
+Apr 02: [Метрики монетизации II](#c3_monetization2). Расчет метрики монетизации: Conversion, ARPU, cARPU, воронка платежей.
+
+Apr 9: [Метрики монетизации III](#c3_monetization3). Разбор домашней работы по метрикам монетизации.
 
 
