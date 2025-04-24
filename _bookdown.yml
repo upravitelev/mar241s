@@ -13,7 +13,7 @@ rmd_files: [
   '7_monetization.Rmd',
   # '7_ux.Rmd',
   'hw_1.Rmd',
-  # '8_abtest.Rmd',
+  '8_abtest.Rmd',
   # '9_stats.Rmd',
   # '10_case.Rmd',
   # '11_criteria.Rmd',
