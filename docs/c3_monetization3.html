@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Метрики монетизации pt3 | Методы анализа больших данных</title>
   <meta name="description" content="Метрики монетизации pt3 | Методы анализа больших данных" />
-  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Метрики монетизации pt3 | Методы анализа больших данных" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Ph.A.Upravitelev" />
 
 
-<meta name="date" content="2025-04-24" />
+<meta name="date" content="2025-05-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="c3_monetization2.html"/>
-<link rel="next" href="homework-1.html"/>
+<link rel="next" href="abtests.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -301,20 +301,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="c3_monetization3.html"><a href="c3_monetization3.html#level-5-n-6"><i class="fa fa-check"></i>level 5 (N)</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="homework-1.html"><a href="homework-1.html"><i class="fa fa-check"></i>Homework 1</a>
-<ul>
-<li class="chapter" data-level="" data-path="homework-1.html"><a href="homework-1.html#общие-замечания"><i class="fa fa-check"></i>Общие замечания</a></li>
-<li class="chapter" data-level="" data-path="homework-1.html"><a href="homework-1.html#описание-данных"><i class="fa fa-check"></i>Описание данных</a></li>
-<li class="chapter" data-level="" data-path="homework-1.html"><a href="homework-1.html#задание-1"><i class="fa fa-check"></i>Задание 1</a></li>
-<li class="chapter" data-level="" data-path="homework-1.html"><a href="homework-1.html#задание-2"><i class="fa fa-check"></i>Задание 2</a>
-<ul>
-<li class="chapter" data-level="" data-path="homework-1.html"><a href="homework-1.html#описание-приложения"><i class="fa fa-check"></i>Описание приложения</a></li>
-<li class="chapter" data-level="" data-path="homework-1.html"><a href="homework-1.html#changelog-изменения-в-функционале-и-исправления-ошибок"><i class="fa fa-check"></i>Changelog (изменения в функционале и исправления ошибок):</a></li>
-<li class="chapter" data-level="" data-path="homework-1.html"><a href="homework-1.html#задание"><i class="fa fa-check"></i>Задание</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="homework-1.html"><a href="homework-1.html#задание-3"><i class="fa fa-check"></i>Задание 3</a></li>
-<li class="chapter" data-level="" data-path="homework-1.html"><a href="homework-1.html#задание-4"><i class="fa fa-check"></i>Задание 4</a></li>
-</ul></li>
 <li class="chapter" data-level="" data-path="abtests.html"><a href="abtests.html"><i class="fa fa-check"></i>A/b-тесты</a>
 <ul>
 <li class="chapter" data-level="" data-path="abtests.html"><a href="abtests.html#запись-занятия-5"><i class="fa fa-check"></i>Запись занятия</a></li>
@@ -360,6 +346,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="abtests.html"><a href="abtests.html#pro"><i class="fa fa-check"></i>pro</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="abtests.html"><a href="abtests.html#полезные-материалы-3"><i class="fa fa-check"></i>Полезные материалы</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="ux.html"><a href="ux.html"><i class="fa fa-check"></i>UX intro</a>
+<ul>
+<li class="chapter" data-level="" data-path="ux.html"><a href="ux.html#запись-занятия-6"><i class="fa fa-check"></i>Запись занятия</a></li>
+<li class="chapter" data-level="" data-path="ux.html"><a href="ux.html#папка-с-записями-в-dropbox-5"><i class="fa fa-check"></i>Папка с записями в Dropbox</a></li>
+<li class="chapter" data-level="" data-path="ux.html"><a href="ux.html#полезные-ссылки"><i class="fa fa-check"></i>Полезные ссылки</a></li>
 </ul></li>
 </ul>
 
@@ -609,8 +601,8 @@ July
 <span id="cb26-33"><a href="c3_monetization3.html#cb26-33" tabindex="-1"></a>  <span class="fu">config</span>(<span class="at">displayModeBar =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## Warning in RColorBrewer::brewer.pal(N, &quot;Set2&quot;): minimal value for n is 3, returning requested palette with 3 different levels
 ## Warning in RColorBrewer::brewer.pal(N, &quot;Set2&quot;): minimal value for n is 3, returning requested palette with 3 different levels</code></pre>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-22b34be91793895f2518" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-22b34be91793895f2518">{"x":{"visdat":{"3c9863ee5fd25":["function () ","plotlyVisDat"]},"cur_data":"3c9863ee5fd25","attrs":{"3c9863ee5fd25":{"x":{},"y":{},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Воронка платежей","xaxis":{"domain":[0,1],"automargin":true,"title":"payment_number"},"yaxis":{"domain":[0,1],"automargin":true,"title":"share"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false},"data":[{"x":[1,2,3,4,5,6,7,8,9,10],"y":[1,0.50125944584382875,0.33501259445843828,0.2401343408900084,0.17716204869857263,0.1486146095717884,0.12594458438287154,0.10747271200671704,0.086481947942905119,0.072208228379513018],"type":"bar","name":"ANDROID","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[1,2,3,4,5,6,7,8,9,10],"y":[1,0.5934640522875817,0.42222222222222222,0.34509803921568627,0.2803921568627451,0.24509803921568626,0.20718954248366014,0.18366013071895426,0.16143790849673204,0.14640522875816994],"type":"bar","name":"IOS","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-cc4f98a3db49719ba526" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-cc4f98a3db49719ba526">{"x":{"visdat":{"14b6d5e581a93":["function () ","plotlyVisDat"]},"cur_data":"14b6d5e581a93","attrs":{"14b6d5e581a93":{"x":{},"y":{},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Воронка платежей","xaxis":{"domain":[0,1],"automargin":true,"title":"payment_number"},"yaxis":{"domain":[0,1],"automargin":true,"title":"share"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false},"data":[{"x":[1,2,3,4,5,6,7,8,9,10],"y":[1,0.50125944584382875,0.33501259445843828,0.2401343408900084,0.17716204869857263,0.1486146095717884,0.12594458438287154,0.10747271200671704,0.086481947942905119,0.072208228379513018],"type":"bar","name":"ANDROID","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[1,2,3,4,5,6,7,8,9,10],"y":[1,0.5934640522875817,0.42222222222222222,0.34509803921568627,0.2803921568627451,0.24509803921568626,0.20718954248366014,0.18366013071895426,0.16143790849673204,0.14640522875816994],"type":"bar","name":"IOS","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="c3_monetization3.html#cb28-1" tabindex="-1"></a><span class="co"># Строим воронку платежей</span></span>
 <span id="cb28-2"><a href="c3_monetization3.html#cb28-2" tabindex="-1"></a><span class="fu">plot_ly</span>(payment_funnel,  <span class="at">x =</span> <span class="sc">~</span>payment_number,  <span class="at">y =</span> <span class="sc">~</span>share_prev,  <span class="at">type =</span> <span class="st">&quot;bar&quot;</span>, <span class="at">color =</span> <span class="sc">~</span>platform) <span class="sc">%&gt;%</span></span>
 <span id="cb28-3"><a href="c3_monetization3.html#cb28-3" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">title =</span> <span class="st">&quot;Воронка платежей, доля от предыдущего шага&quot;</span>) <span class="sc">%&gt;%</span>  </span>
@@ -618,8 +610,8 @@ July
 <pre><code>## Warning: Ignoring 2 observations
 ## Warning: minimal value for n is 3, returning requested palette with 3 different levels
 ## Warning: minimal value for n is 3, returning requested palette with 3 different levels</code></pre>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-eefa86f62831d1ca90a5" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-eefa86f62831d1ca90a5">{"x":{"visdat":{"3c9862060a979":["function () ","plotlyVisDat"]},"cur_data":"3c9862060a979","attrs":{"3c9862060a979":{"x":{},"y":{},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Воронка платежей, доля от предыдущего шага","xaxis":{"domain":[0,1],"automargin":true,"title":"payment_number"},"yaxis":{"domain":[0,1],"automargin":true,"title":"share_prev"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false},"data":[{"x":[2,3,4,5,6,7,8,9,10],"y":[0.50125944584382875,0.66834170854271358,0.71679197994987465,0.73776223776223782,0.83886255924170616,0.84745762711864403,0.85333333333333339,0.8046875,0.83495145631067957],"type":"bar","name":"ANDROID","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2,3,4,5,6,7,8,9,10],"y":[0.5934640522875817,0.71145374449339205,0.8173374613003096,0.8125,0.87412587412587417,0.84533333333333338,0.88643533123028395,0.87900355871886116,0.90688259109311742],"type":"bar","name":"IOS","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-063b8e9fd1e5b0418c5c" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-063b8e9fd1e5b0418c5c">{"x":{"visdat":{"14b6d4b217548":["function () ","plotlyVisDat"]},"cur_data":"14b6d4b217548","attrs":{"14b6d4b217548":{"x":{},"y":{},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Воронка платежей, доля от предыдущего шага","xaxis":{"domain":[0,1],"automargin":true,"title":"payment_number"},"yaxis":{"domain":[0,1],"automargin":true,"title":"share_prev"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false},"data":[{"x":[2,3,4,5,6,7,8,9,10],"y":[0.50125944584382875,0.66834170854271358,0.71679197994987465,0.73776223776223782,0.83886255924170616,0.84745762711864403,0.85333333333333339,0.8046875,0.83495145631067957],"type":"bar","name":"ANDROID","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2,3,4,5,6,7,8,9,10],"y":[0.5934640522875817,0.71145374449339205,0.8173374613003096,0.8125,0.87412587412587417,0.84533333333333338,0.88643533123028395,0.87900355871886116,0.90688259109311742],"type":"bar","name":"IOS","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="level-5-n-6" class="section level3 hasAnchor">
 <h3>level 5 (N)<a href="c3_monetization3.html#level-5-n-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -673,8 +665,8 @@ July
 <span id="cb30-42"><a href="c3_monetization3.html#cb30-42" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Конверсия в платящих по источникам трафика&quot;</span>,</span>
 <span id="cb30-43"><a href="c3_monetization3.html#cb30-43" tabindex="-1"></a>    <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">rangemode =</span> <span class="st">&#39;tozero&#39;</span>)</span>
 <span id="cb30-44"><a href="c3_monetization3.html#cb30-44" tabindex="-1"></a>  )</span></code></pre></div>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-06ad52c82c34ac5d1b36" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-06ad52c82c34ac5d1b36">{"x":{"visdat":{"3c98627186d39":["function () ","plotlyVisDat"]},"cur_data":"3c98627186d39","attrs":{"3c98627186d39":{"x":{},"y":{},"mode":"lines","color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Конверсия в платящих по источникам трафика","yaxis":{"domain":[0,1],"automargin":true,"rangemode":"tozero","title":"conversion_cum"},"xaxis":{"domain":[0,1],"automargin":true,"title":"lifetime"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[0,1,2,3,5,7],"y":[0.013878180416345412,0.022359290670778721,0.024672320740169621,0.030069390902081727,0.030840400925212029,0.031611410948342328],"mode":"lines","type":"scatter","name":"Facebook Ads","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0,1,2,3,4,5,6,7],"y":[0.0095876232499863805,0.015144086724410307,0.018167456556082148,0.020046848613607889,0.021272539085907285,0.022770605218717654,0.023778395162608268,0.024350384049681321],"mode":"lines","type":"scatter","name":"applovin_int","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0,1,2,3,4,5,6,7],"y":[0.0075962405046993689,0.011072486159392301,0.012874983906270118,0.014162482296897129,0.014677481653147934,0.01532123084846144,0.015707480365649541,0.016093729882837648],"mode":"lines","type":"scatter","name":"googleadwords_int","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0,1,2,3,4,5,6,7],"y":[0.017178628621342264,0.02838841170476052,0.032173533265395252,0.035521910030572139,0.039015868394234966,0.039889357985150677,0.040908429174552334,0.042946571553355656],"mode":"lines","type":"scatter","name":"other","marker":{"color":"rgba(231,138,195,1)","line":{"color":"rgba(231,138,195,1)"}},"textfont":{"color":"rgba(231,138,195,1)"},"error_y":{"color":"rgba(231,138,195,1)"},"error_x":{"color":"rgba(231,138,195,1)"},"line":{"color":"rgba(231,138,195,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0,1,2,3,4,5,6,7],"y":[0.003647638154295094,0.0060641984315155939,0.0071128944008754334,0.0077968265548057636,0.0081159948933065846,0.0089823089549516694,0.0093014772934524887,0.0094838592011672451],"mode":"lines","type":"scatter","name":"unityads_int","marker":{"color":"rgba(166,216,84,1)","line":{"color":"rgba(166,216,84,1)"}},"textfont":{"color":"rgba(166,216,84,1)"},"error_y":{"color":"rgba(166,216,84,1)"},"error_x":{"color":"rgba(166,216,84,1)"},"line":{"color":"rgba(166,216,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0,1,2,3,4,5,6,7],"y":[0.0050042854378058556,0.0082667477674251439,0.0099532749039232486,0.011059194337692499,0.011971577870552131,0.012524537587436756,0.012883961403411762,0.013547513063673312],"mode":"lines","type":"scatter","name":"NA","marker":{"color":"transparent","line":{"color":"transparent"}},"textfont":{"color":"transparent"},"error_y":{"color":"transparent"},"error_x":{"color":"transparent"},"line":{"color":"transparent"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-236ffc073cd7778bdc78" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-236ffc073cd7778bdc78">{"x":{"visdat":{"14b6d52d83224":["function () ","plotlyVisDat"]},"cur_data":"14b6d52d83224","attrs":{"14b6d52d83224":{"x":{},"y":{},"mode":"lines","color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Конверсия в платящих по источникам трафика","yaxis":{"domain":[0,1],"automargin":true,"rangemode":"tozero","title":"conversion_cum"},"xaxis":{"domain":[0,1],"automargin":true,"title":"lifetime"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[0,1,2,3,5,7],"y":[0.013878180416345412,0.022359290670778721,0.024672320740169621,0.030069390902081727,0.030840400925212029,0.031611410948342328],"mode":"lines","type":"scatter","name":"Facebook Ads","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0,1,2,3,4,5,6,7],"y":[0.0095876232499863805,0.015144086724410307,0.018167456556082148,0.020046848613607889,0.021272539085907285,0.022770605218717654,0.023778395162608268,0.024350384049681321],"mode":"lines","type":"scatter","name":"applovin_int","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0,1,2,3,4,5,6,7],"y":[0.0075962405046993689,0.011072486159392301,0.012874983906270118,0.014162482296897129,0.014677481653147934,0.01532123084846144,0.015707480365649541,0.016093729882837648],"mode":"lines","type":"scatter","name":"googleadwords_int","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0,1,2,3,4,5,6,7],"y":[0.017178628621342264,0.02838841170476052,0.032173533265395252,0.035521910030572139,0.039015868394234966,0.039889357985150677,0.040908429174552334,0.042946571553355656],"mode":"lines","type":"scatter","name":"other","marker":{"color":"rgba(231,138,195,1)","line":{"color":"rgba(231,138,195,1)"}},"textfont":{"color":"rgba(231,138,195,1)"},"error_y":{"color":"rgba(231,138,195,1)"},"error_x":{"color":"rgba(231,138,195,1)"},"line":{"color":"rgba(231,138,195,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0,1,2,3,4,5,6,7],"y":[0.003647638154295094,0.0060641984315155939,0.0071128944008754334,0.0077968265548057636,0.0081159948933065846,0.0089823089549516694,0.0093014772934524887,0.0094838592011672451],"mode":"lines","type":"scatter","name":"unityads_int","marker":{"color":"rgba(166,216,84,1)","line":{"color":"rgba(166,216,84,1)"}},"textfont":{"color":"rgba(166,216,84,1)"},"error_y":{"color":"rgba(166,216,84,1)"},"error_x":{"color":"rgba(166,216,84,1)"},"line":{"color":"rgba(166,216,84,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0,1,2,3,4,5,6,7],"y":[0.0050042854378058556,0.0082667477674251439,0.0099532749039232486,0.011059194337692499,0.011971577870552131,0.012524537587436756,0.012883961403411762,0.013547513063673312],"mode":"lines","type":"scatter","name":"NA","marker":{"color":"transparent","line":{"color":"transparent"}},"textfont":{"color":"transparent"},"error_y":{"color":"transparent"},"error_x":{"color":"transparent"},"line":{"color":"transparent"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 
 </div>
 </div>
@@ -685,7 +677,7 @@ July
         </div>
       </div>
 <a href="c3_monetization2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="homework-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="abtests.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -699,36 +691,36 @@ July
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": false,
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "section",
-"scroll_highlight": true
-},
-"toolbar": {
-"position": "static"
-}
+  "sharing": false,
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section",
+    "scroll_highlight": true
+  },
+  "toolbar": {
+    "position": "static"
+  }
 });
 });
 </script>
