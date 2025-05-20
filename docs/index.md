@@ -2,7 +2,7 @@
 title: "Методы анализа больших данных"
 subtitle: "в исследованиях поведения покупателей"
 author: 'Ph.A.Upravitelev '
-date: "2025-05-13"
+date: "2025-05-20"
 documentclass: book
 link-citations: yes
 lang: ru-RU
